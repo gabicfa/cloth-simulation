@@ -18,7 +18,7 @@ class GLWidget(QOpenGLWidget):
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glMatrixMode(GL_MODELVIEW)
         glLoadIdentity()
-        gluLookAt(0, 0, 5, 0, 0, 0, 0, 1, 0)
+        gluLookAt(1, 0, 5, 1, -1, 0, 0, 1, 0)
 
         glPointSize(7.0)  # Set the size of the points
         glBegin(GL_POINTS)
@@ -28,6 +28,17 @@ class GLWidget(QOpenGLWidget):
             position = particle.position
             glVertex3f(position[0], position[1], position[2])
         glEnd()
+
+        # Draw sphere
+        glColor3f(1.0, 0.0, 0.0)  # Set the color of the sphere
+        sphere_radius = 0.5
+        sphere_slices = 50
+        sphere_stacks = 50
+        sphere_quad = gluNewQuadric()
+        glPushMatrix()  # Save the current matrix
+        glTranslatef(1.0, -0.5, 1.0)  # Move to the sphere's position
+        gluSphere(sphere_quad, sphere_radius, sphere_slices, sphere_stacks)
+        glPopMatrix()  # Restore the original matrix
 
         glLineWidth(2.0)
         glBegin(GL_LINES)
@@ -42,17 +53,17 @@ class GLWidget(QOpenGLWidget):
         # Render the floor plane
         glColor3f(0.5, 0.5, 0.5)  # Set the color of the floor
         glBegin(GL_QUADS)
-        glVertex3f(-2.5, -0.5, -2.5)  # Bottom left
-        glVertex3f(2.5, -0.5, -2.5)  # Bottom right
-        glVertex3f(2.5, -0.5, 2.5)  # Top right
-        glVertex3f(-2.5, -0.5, 2.5)  # Top left
+        glVertex3f(-2.5, -1.05, -2.5)  # Bottom left
+        glVertex3f(2.5, -1.05, -2.5)  # Bottom right
+        glVertex3f(2.5, -1.05, 2.5)  # Top right
+        glVertex3f(-2.5, -1.05, 2.5)  # Top left
         glEnd()
 
         glFlush()
 
     def timerEvent(self, event):
         # Update the simulation
-        delta_time = 0.01  # Adjust the time step as needed
+        delta_time = 0.001  # Adjust the time step as needed
         self.cloth.update_simulation(delta_time)
 
         # Trigger the rendering
@@ -68,7 +79,7 @@ class MainWindow(QMainWindow):
         self.gl_widget.cloth = cloth
         self.setCentralWidget(self.gl_widget)
         # Set up the timer to trigger the update periodically
-        timer_interval = 10  # Adjust the interval in milliseconds as needed
+        timer_interval = 1  # Adjust the interval in milliseconds as needed
         self.timer_id = self.startTimer(timer_interval)
     
     def timerEvent(self, event):
