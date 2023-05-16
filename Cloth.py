@@ -14,11 +14,11 @@ class Spring:
         self.rest_length = rest_length
         self.stiffness = stiffness
 
-class ClothSimulation:
+class Cloth:
     def __init__(self):
         self.particles = []  # List of particles
         self.springs = []  # List of springs
-        self.rotation_angle_x = 45 
+        self.rotation_angle_x = 30
 
         # Set up initial positions, velocities, masses, and springs
         # Add code here to create particles and springs for the cloth
@@ -42,7 +42,7 @@ class ClothSimulation:
                     position[1] * np.sin(np.deg2rad(self.rotation_angle_x)) + position[2] * np.cos(np.deg2rad(self.rotation_angle_x))
                 ])
                 velocity = np.zeros(3)
-                mass = 1.0
+                mass = 0.1
                 particle = Particle(rotated_position, velocity, mass)
                 self.particles.append(particle)
     
@@ -69,6 +69,19 @@ class ClothSimulation:
             # Apply gravity as an external force to each particle
             particle.force += particle.mass * gravity
 
+        # Adding the spring forces
+        for spring in self.springs:
+            # Calculate the spring force according to Hooke's law
+            displacement = spring.particle1.position - spring.particle2.position
+            distance = np.linalg.norm(displacement)
+            direction = displacement / distance if distance != 0 else 0  # to avoid division by zero
+            spring_force_magnitude = spring.stiffness * (spring.rest_length - distance)
+            spring_force = spring_force_magnitude * direction
+
+            # Apply the spring force to each particle connected by the spring
+            spring.particle1.force -= spring_force
+            spring.particle2.force += spring_force
+
     def handle_collisions(self):
         ground_level = -0.5
         damping_factor = 0.4  # Adjust damping factor as needed
@@ -77,11 +90,21 @@ class ClothSimulation:
             if particle.position[1] < ground_level:
                 # Handle collision with ground
                 particle.position[1] = ground_level
-                particle.velocity[1] = -particle.velocity[1] * damping_factor
+                # Apply damping to all velocity components
+                particle.velocity *= damping_factor
+                particle.velocity[1] = -particle.velocity[1]
 
     def update_constraints(self):
-        # Implement this method to update constraints (e.g., prevent stretching or tearing)
-        pass
+        stretching_limit = 1.1  # Allow springs to stretch to 110% of their rest length
+        for spring in self.springs:
+            p1 = spring.particle1
+            p2 = spring.particle2
+            distance = np.linalg.norm(p2.position - p1.position)
+            if distance > spring.rest_length * stretching_limit:
+                correction = (distance - spring.rest_length * stretching_limit) / 2.0
+                direction = (p2.position - p1.position) / distance
+                p1.position += direction * correction
+                p2.position -= direction * correction
 
     def integrate_particles(self, delta_time):
         for particle in self.particles:
@@ -93,7 +116,6 @@ class ClothSimulation:
 
             # Update position using the new velocity
             particle.position += particle.velocity * delta_time
-            print(particle.position)
             # Reset the force for the next iteration
             particle.force = np.zeros(3)
 

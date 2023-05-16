@@ -4,7 +4,7 @@ from PyQt5.QtGui import QOpenGLVersionProfile, QSurfaceFormat
 from PyQt5.QtCore import Qt
 from OpenGL.GL import *
 from OpenGL.GLU import *
-from Cloth import ClothSimulation
+from Cloth import Cloth
 
 class GLWidget(QOpenGLWidget):
     def initializeGL(self):
@@ -20,15 +20,11 @@ class GLWidget(QOpenGLWidget):
         glLoadIdentity()
         gluLookAt(0, 0, 5, 0, 0, 0, 0, 1, 0)
 
-        # Render the cloth simulation
-        # glPushMatrix()
-        # glTranslatef(-cloth_width / 2.0, -cloth_height / 2.0, 0.0)  # Translate to the center of the cloth
-
         glPointSize(7.0)  # Set the size of the points
         glBegin(GL_POINTS)
         glColor3f(0.0, 0.0, 0.0)  # Set the color of the particles
 
-        for particle in self.cloth_simulation.particles:
+        for particle in self.cloth.particles:
             position = particle.position
             glVertex3f(position[0], position[1], position[2])
         glEnd()
@@ -36,7 +32,7 @@ class GLWidget(QOpenGLWidget):
         glLineWidth(2.0)
         glBegin(GL_LINES)
         glColor3f(0.0, 0.0, 0.0)  # Set the color of the strings
-        for spring in self.cloth_simulation.springs:
+        for spring in self.cloth.springs:
             p1 = spring.particle1.position
             p2 = spring.particle2.position
             glVertex3f(p1[0], p1[1], p1[2])
@@ -57,19 +53,19 @@ class GLWidget(QOpenGLWidget):
     def timerEvent(self, event):
         # Update the simulation
         delta_time = 0.01  # Adjust the time step as needed
-        self.cloth_simulation.update_simulation(delta_time)
+        self.cloth.update_simulation(delta_time)
 
         # Trigger the rendering
         self.update()
 
 
 class MainWindow(QMainWindow):
-    def __init__(self, cloth_simulation):
+    def __init__(self, cloth):
         super().__init__()
         self.setWindowTitle("Cloth Simulation")
         self.setFixedSize(800, 600)
         self.gl_widget = GLWidget(self)
-        self.gl_widget.cloth_simulation = cloth_simulation
+        self.gl_widget.cloth = cloth
         self.setCentralWidget(self.gl_widget)
         # Set up the timer to trigger the update periodically
         timer_interval = 10  # Adjust the interval in milliseconds as needed
@@ -88,10 +84,10 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
 
     # Create an instance of ClothSimulation
-    cloth_simulation = ClothSimulation()
+    cloth = Cloth()
 
     # Create an instance of MainWindow and pass the ClothSimulation instance
-    window = MainWindow(cloth_simulation)
+    window = MainWindow(cloth)
     window.show()
 
     # Start the application event loop
