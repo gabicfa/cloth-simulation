@@ -1,10 +1,10 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QOpenGLWidget
-from PyQt5.QtGui import QOpenGLVersionProfile, QSurfaceFormat
 from PyQt5.QtCore import Qt
 from OpenGL.GL import *
 from OpenGL.GLU import *
 from Cloth import Cloth
+from Sphere import Sphere
 
 class GLWidget(QOpenGLWidget):
     def initializeGL(self):
@@ -13,32 +13,39 @@ class GLWidget(QOpenGLWidget):
         glMatrixMode(GL_PROJECTION)
         glLoadIdentity()
         gluPerspective(45.0, self.width() / self.height(), 0.1, 100.0)
+    
+    def drawSphere(self):
+        # Draw sphere
+        glColor3f(1.0, 0.0, 0.0)  # Set the color of the sphere
+        sphere_radius = self.sphere.radius - 0.05
+        sphere_slices = 50
+        sphere_stacks = 50
+        sphere_quad = gluNewQuadric()
+        glPushMatrix()  # Save the current matrix
+        glTranslatef(self.sphere.center[0], self.sphere.center[1], self.sphere.center[2])  # Move to the sphere's position
+        gluSphere(sphere_quad, sphere_radius, sphere_slices, sphere_stacks)
+        glPopMatrix()  # Restore the original matrix
 
     def paintGL(self):
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glMatrixMode(GL_MODELVIEW)
         glLoadIdentity()
-        gluLookAt(1, 0, 5, 1, -1, 0, 0, 1, 0)
+        gluLookAt(0.5, 1.0, 4, 0.5, -1.0, 0, 0, 1, 0)
 
         glPointSize(7.0)  # Set the size of the points
         glBegin(GL_POINTS)
         glColor3f(0.0, 0.0, 0.0)  # Set the color of the particles
-
         for particle in self.cloth.particles:
+            if particle.is_fixed : 
+                glColor3f(0.0, 0.0, 1.0)  # Set the color of the particles
+            else : 
+                glColor3f(0.0, 0.0, 0.0)  # Set the color of the particles
             position = particle.position
             glVertex3f(position[0], position[1], position[2])
         glEnd()
 
-        # Draw sphere
-        glColor3f(1.0, 0.0, 0.0)  # Set the color of the sphere
-        sphere_radius = 0.5
-        sphere_slices = 50
-        sphere_stacks = 50
-        sphere_quad = gluNewQuadric()
-        glPushMatrix()  # Save the current matrix
-        glTranslatef(1.0, -0.5, 1.0)  # Move to the sphere's position
-        gluSphere(sphere_quad, sphere_radius, sphere_slices, sphere_stacks)
-        glPopMatrix()  # Restore the original matrix
+        
+        self.drawSphere()
 
         glLineWidth(2.0)
         glBegin(GL_LINES)
@@ -50,20 +57,21 @@ class GLWidget(QOpenGLWidget):
             glVertex3f(p2[0], p2[1], p2[2])
         glEnd()
 
-        # Render the floor plane
-        glColor3f(0.5, 0.5, 0.5)  # Set the color of the floor
-        glBegin(GL_QUADS)
-        glVertex3f(-2.5, -1.05, -2.5)  # Bottom left
-        glVertex3f(2.5, -1.05, -2.5)  # Bottom right
-        glVertex3f(2.5, -1.05, 2.5)  # Top right
-        glVertex3f(-2.5, -1.05, 2.5)  # Top left
-        glEnd()
+        # # Render the floor plane
+        # glColor3f(0.5, 0.5, 0.5)  # Set the color of the floor
+        # glBegin(GL_QUADS)
+        # glVertex3f(-2.5, -1.05, -2.5)  # Bottom left
+        # glVertex3f(2.5, -1.05, -2.5)  # Bottom right
+        # glVertex3f(2.5, -1.05, 2.5)  # Top right
+        # glVertex3f(-2.5, -1.05, 2.5)  # Top left
+        # glEnd()
 
         glFlush()
 
     def timerEvent(self, event):
         # Update the simulation
-        delta_time = 0.001  # Adjust the time step as needed
+        delta_time = 0.01  # Adjust the time step as needed
+        self.cloth.handle_collisions_with_sphere(self.sphere)
         self.cloth.update_simulation(delta_time)
 
         # Trigger the rendering
@@ -71,12 +79,13 @@ class GLWidget(QOpenGLWidget):
 
 
 class MainWindow(QMainWindow):
-    def __init__(self, cloth):
+    def __init__(self, cloth, sphere):
         super().__init__()
         self.setWindowTitle("Cloth Simulation")
         self.setFixedSize(800, 600)
         self.gl_widget = GLWidget(self)
         self.gl_widget.cloth = cloth
+        self.gl_widget.sphere = sphere
         self.setCentralWidget(self.gl_widget)
         # Set up the timer to trigger the update periodically
         timer_interval = 1  # Adjust the interval in milliseconds as needed
@@ -96,9 +105,9 @@ if __name__ == "__main__":
 
     # Create an instance of ClothSimulation
     cloth = Cloth()
-
+    sphere = Sphere()
     # Create an instance of MainWindow and pass the ClothSimulation instance
-    window = MainWindow(cloth)
+    window = MainWindow(cloth, sphere)
     window.show()
 
     # Start the application event loop

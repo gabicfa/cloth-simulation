@@ -1,12 +1,13 @@
 import numpy as np
 
 class Particle:
-    def __init__(self, mass, position):
+    def __init__(self, mass, position, is_fixed = False):
         self.mass = mass
         self.position = position
         self.velocity = np.zeros_like(position)
         self.force = np.zeros_like(position)
         self.initial_position = np.copy(position)
+        self.is_fixed = is_fixed
 
 class Spring:
     def __init__(self, particle1, particle2, stiffness):
