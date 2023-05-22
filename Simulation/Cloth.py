@@ -1,8 +1,9 @@
-from ClothElements import Particle, Spring, Quadruple, Triple
+from Simulation.ClothElements import Particle, Spring, Quadruple, Triple
 from scipy.sparse import lil_matrix, identity
 from scipy.sparse.linalg import cg
 import numpy as np
-from Solid import Solid
+from Simulation.Solid import Solid
+
 class Cloth:
     def __init__(self, num_particles_x = 20, num_particles_y = 20, cloth_width = 3, cloth_height = 1):
         self.particles = []
@@ -110,6 +111,12 @@ class Cloth:
 
         for particle in self.particles:
             particle.position = np.dot(rotation_matrix, particle.position)
+    
+    def reset(self):
+        for particle in self.particles:
+            particle.position = particle.initial_position
+            particle.velocity = np.zeros(3)
+            particle.force = np.zeros(3)
 
     # --------- FORCES --------- #
 

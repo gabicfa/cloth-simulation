@@ -1,6 +1,6 @@
 import numpy as np
-from Triangle import Triangle
-from Solid import Solid
+from Simulation.Triangle import Triangle
+from Simulation.Solid import Solid
 
 class Cube(Solid):
     def __init__(self, center=[0.0, 0.0, 0.0], size=1):
