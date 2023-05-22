@@ -2,9 +2,9 @@ from ClothElements import Particle, Spring, Quadruple, Triple
 from scipy.sparse import lil_matrix, identity
 from scipy.sparse.linalg import cg
 import numpy as np
-
+from Solid import Solid
 class Cloth:
-    def __init__(self, num_particles_x = 10, num_particles_y = 10, cloth_width = 1, cloth_height = 1):
+    def __init__(self, num_particles_x = 20, num_particles_y = 20, cloth_width = 3, cloth_height = 1):
         self.particles = []
         self.springs = []
         self.springs_dict = {}
@@ -20,13 +20,12 @@ class Cloth:
         # self.friction_coefficient = 10
         # self.restitution_coefficient = 0.1
 
-        self.damping = 0.1
+        self.damping = 1
         self.mass = 1
-        self.stiffness = 10 * num_particles_x * num_particles_y 
-        self.shearing_stiffness = 5
-        self.bending_stiffness = 3
-        self.rotation_angle_x = 90
-        self.friction_coefficient = 0.8
+        self.stiffness = 20 * num_particles_x * num_particles_y 
+        self.shearing_stiffness = 10
+        self.bending_stiffness = 5
+        self.friction_coefficient = 10
         self.restitution_coefficient = 0.1
 
         # --------- SETUP --------- #
@@ -38,13 +37,6 @@ class Cloth:
                 # if (j == num_particles_y-1) :
                 #     is_fixed = True
                 position = np.array([cloth_width * i / (num_particles_x - 1), cloth_height * j / (num_particles_y - 1), 0.0])
-                # Apply rotation transformation
-                rotated_position = np.array([
-                    position[0],
-                    position[1] * np.cos(np.deg2rad(self.rotation_angle_x)) - position[2] * np.sin(np.deg2rad(self.rotation_angle_x)),
-                    position[1] * np.sin(np.deg2rad(self.rotation_angle_x)) + position[2] * np.cos(np.deg2rad(self.rotation_angle_x))
-                ])
-                position = rotated_position
                 particle = Particle(self.mass, position, is_fixed)
                 self.particles.append(particle)
     
@@ -106,6 +98,18 @@ class Cloth:
             return self.springs_dict[key]
         else:
             return None
+    
+    def translate(self, vector):
+        vector = np.array(vector)
+        for particle in self.particles:
+            particle.position += vector
+
+    def rotate(self, axis, angle):
+        axis = np.array(axis)
+        rotation_matrix = Solid.rotation_matrix(axis, angle)
+
+        for particle in self.particles:
+            particle.position = np.dot(rotation_matrix, particle.position)
 
     # --------- FORCES --------- #
 
@@ -278,54 +282,10 @@ class Cloth:
     
     # --------- COLLISION --------- #
 
-    def handle_collisions_with_sphere(self, sphere):
+    def handle_collisions_with_solid(self, solid, threshold=0.01):
         for particle in self.particles:
-            distance = np.linalg.norm(particle.position - sphere.center)
-            if distance < sphere.radius:
-                direction = (particle.position - sphere.center) / distance
-                penetration = sphere.radius - distance
-
-                particle.position = sphere.center + direction * sphere.radius
-
-                velocity_projection = np.dot(particle.velocity, direction)
-
-                # If the velocity is pointing into the sphere, reverse it
-                if velocity_projection < 0:
-                    particle.velocity -= velocity_projection * direction
-
-                # Calculate the tangential (along the sphere's surface) velocity
-                tangential_velocity = particle.velocity - velocity_projection * direction
-                # Apply friction force opposing the tangential velocity
-                friction_force = -self.friction_coefficient * np.linalg.norm(tangential_velocity) * tangential_velocity
-
-                # Add the friction force to the particle's force
-                particle.force += friction_force
-
-                # Apply a constraint force proportional to the penetration distance
-                constraint_force = (penetration * direction) / particle.mass
-                particle.force += constraint_force
-
-    def handle_collisions_with_triangle(self, triangle):
-        damping_factor = 0.2  # for example, you can tune this
-
-        for particle in self.particles:
-            # distance from the particle to the plane of the triangle
-            plane_distance = np.dot(triangle.normal, particle.position - triangle.p1)
-            if 0.0 < plane_distance < 0.05:  # If the particle is on the side of the triangle
-                # If the particle is inside the triangle boundaries
-                if triangle.point_inside(particle.position):
-                    particle.position += np.abs(plane_distance) * triangle.normal 
-                    velocity_projection = np.dot(particle.velocity, triangle.normal)
-                    if velocity_projection < 0:
-                        particle.velocity -= damping_factor * velocity_projection * triangle.normal  # Apply the damping factor here
-                        tangent_velocity =  particle.velocity - velocity_projection * triangle.normal  # Compute the tangential component of the velocity
-                        friction_force = -self.friction_coefficient * tangent_velocity  # Apply friction in the opposite direction of the tangential velocity
-                        particle.force += friction_force  # Add friction force to the particle
-
-    def handle_collisions_with_cube(self, cube, threshold=0.01):
-        for particle in self.particles:
-            if cube.point_inside(particle.position):
-                for triangle in cube.triangles:
+            if solid.point_inside(particle.position):
+                for triangle in solid.triangles:
                     # Distance from the particle to the plane of the triangle
                     plane_distance = np.dot(triangle.normal, particle.position - triangle.p1)
                     if -threshold < plane_distance < threshold:  # If the particle is near the plane of the triangle
@@ -348,13 +308,10 @@ class Cloth:
                             # Apply friction in the opposite direction of the tangential velocity
                             friction_force = -self.friction_coefficient * tangent_velocity  
                             particle.force += friction_force  # Add friction force to the particle
-
-
     
     # --------- SIMULATION --------- #
 
     def update_simulation(self, delta_time):
         self.apply_external_forces()
-        # self.handle_collisions()
         self.update_constraints()
-        self.integrate_particles1(delta_time)
+        self.integrate_particles(delta_time)

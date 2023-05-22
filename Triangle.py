@@ -1,5 +1,6 @@
 import numpy as np
 
+from Solid import Solid
 class Triangle:
     def __init__(self, p1 =[0.0, 0.0, 0.0], p2 = [1.0, 0.0, 0.0], p3 = [0.0, 1.0, 0.0]):
         self.p1 = np.array(p1)
@@ -34,53 +35,15 @@ class Triangle:
         v = (dot00 * dot12 - dot01 * dot02) * invDenom
 
         # Check if point is in triangle
-        r = (u >= 0) and (v >= 0) and (u + v < 1)
-        if r :
-            "COLIDIUUU"
-        return r
+        return (u >= 0) and (v >= 0) and (u + v < 1)
 
-    # def point_inside(self, p):
-    #     threshold = 1
-    #     # Check if point p lies inside the triangle using barycentric coordinates
-    #     v0 = self.p2 - self.p1
-    #     v1 = self.p3 - self.p1
-    #     v2 = p - self.p1
-
-    #     denom = np.dot(v0, v0) * np.dot(v1, v1) - np.dot(v0, v1) ** 2
-    #     u = (np.dot(v1, v1) * np.dot(v2, v0) - np.dot(v1, v0) * np.dot(v2, v1)) / denom
-    #     v = (np.dot(v0, v0) * np.dot(v2, v1) - np.dot(v0, v1) * np.dot(v2, v0)) / denom
-
-    #     if (u + threshold >= 0) and (v + threshold >= 0) and (u + v - threshold <= 1):
-    #         return True
-
-    #     return False
-
-    def rotate(self, angle, axis):
-        # normalize axis vector
-        axis = np.array(axis) / np.linalg.norm(axis)
-
-        # rotation matrix
-        cos_angle = np.cos(np.radians(angle))
-        sin_angle = np.sin(np.radians(angle))
-        R = np.array([
-            [cos_angle + axis[0]**2 * (1 - cos_angle),
-                axis[0] * axis[1] * (1 - cos_angle) - axis[2] * sin_angle,
-                axis[0] * axis[2] * (1 - cos_angle) + axis[1] * sin_angle],
-            [axis[1] * axis[0] * (1 - cos_angle) + axis[2] * sin_angle,
-                cos_angle + axis[1]**2 * (1 - cos_angle),
-                axis[1] * axis[2] * (1 - cos_angle) - axis[0] * sin_angle],
-            [axis[2] * axis[0] * (1 - cos_angle) - axis[1] * sin_angle,
-                axis[2] * axis[1] * (1 - cos_angle) + axis[0] * sin_angle,
-                cos_angle + axis[2]**2 * (1 - cos_angle)]
-        ])
-
-        # apply rotation to points
+    def rotate(self, axis, angle):
+        R = Solid.rotation_matrix(axis, angle)
         self.p1 = np.dot(R, self.p1)
         self.p2 = np.dot(R, self.p2)
         self.p3 = np.dot(R, self.p3)
         self.vertices = [self.p1, self.p2, self.p3]
-        # re-calculate normal after rotation
-        self.normal = self.calculate_normal()
+        self.normal = self.calculate_normal() 
 
     
     def translate(self, vector):
