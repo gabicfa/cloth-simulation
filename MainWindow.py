@@ -1,4 +1,5 @@
 import sys
+import numpy as np
 
 from Cloth import Cloth
 from Sphere import Sphere
@@ -19,7 +20,32 @@ class GLWidget(QOpenGLWidget):
         glMatrixMode(GL_PROJECTION)
         glLoadIdentity()
         gluPerspective(45.0, self.width() / self.height(), 0.1, 100.0)
+        
+        # Camera properties
+        self.cam_position = np.array([0.5, 0.0, 4.0])
+        self.cam_target = np.array([0.5, -1.0, 0.0])
+        self.cam_up_vector = np.array([0.0, 1.0, 0.0])
+        
+        self.rotate_speed = 0.01
+        self.move_speed = 0.05
     
+    def mousePressEvent(self, event):
+        self.mouse_last_position = event.pos()
+    
+    def wheelEvent(self, event):
+        delta = event.angleDelta().y() / 120  # The vertical scroll amount
+        self.cam_position += (self.cam_target - self.cam_position) * self.move_speed * delta
+        self.update()
+
+    def mouseMoveEvent(self, event):
+        dx = event.x() - self.mouse_last_position.x()
+        dy = event.y() - self.mouse_last_position.y()
+
+        self.cam_target += self.rotate_speed * np.array([-dx, dy, 0])
+        self.mouse_last_position = event.pos()
+
+        self.update()
+
     def drawSolid(self, solid):
         # Draw faces
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL)
@@ -43,8 +69,7 @@ class GLWidget(QOpenGLWidget):
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glMatrixMode(GL_MODELVIEW)
         glLoadIdentity()
-        # gluLookAt(-3.0, 0.0, 0.0, 1.0, 0.0, 0, 0, 1, 0)
-        gluLookAt(0.5, 0.0, 4.0, 0.5, -1.0, 0, 0, 1, 0)
+        gluLookAt(*(list(self.cam_position) + list(self.cam_target) + list(self.cam_up_vector)))
 
         #Cloth particles
         glPointSize(7.0) 
@@ -101,13 +126,29 @@ class MainWindow(QMainWindow):
         timer_interval = 1
         self.timer_id = self.startTimer(timer_interval)
     
+    def mousePressEvent(self, event):
+        self.gl_widget.mousePressEvent(event)
+
+    def mouseMoveEvent(self, event):
+        self.gl_widget.mouseMoveEvent(event)
+    
     def timerEvent(self, event):
         self.gl_widget.timerEvent(event)
 
     def keyPressEvent(self, event):
+        # Move the camera depending on which key is pressed
         if event.key() == Qt.Key_Escape:
             self.close()
+        if event.key() == Qt.Key_Up:
+            self.gl_widget.cam_position += self.gl_widget.move_speed * self.gl_widget.cam_up_vector
+        elif event.key() == Qt.Key_Down:
+            self.gl_widget.cam_position -= self.gl_widget.move_speed * self.gl_widget.cam_up_vector
+        elif event.key() == Qt.Key_Left:
+            self.gl_widget.cam_position -= np.cross(self.gl_widget.cam_target - self.gl_widget.cam_position, self.gl_widget.cam_up_vector) * self.gl_widget.move_speed
+        elif event.key() == Qt.Key_Right:
+            self.gl_widget.cam_position += np.cross(self.gl_widget.cam_target - self.gl_widget.cam_position, self.gl_widget.cam_up_vector) * self.gl_widget.move_speed
 
+        self.gl_widget.update()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
