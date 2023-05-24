@@ -32,8 +32,8 @@ class SimulationWidget(QOpenGLWidget):
         gluPerspective(45.0, self.width() / self.height(), 0.1, 100.0)
         
         # Camera properties
-        self.cam_position = np.array([0.5, 0.0, 4.0])
-        self.cam_target = np.array([0.5, -1.0, 0.0])
+        self.cam_position = np.array([0.0, 1.0, 4.0])
+        self.cam_target = np.array([0.0, 1.0, 0.0])
         self.cam_up_vector = np.array([0.0, 1.0, 0.0])
         
         self.rotate_speed = 0.01
@@ -138,7 +138,7 @@ class MainWindow(QMainWindow):
         self.plane = Plane()
         self.plane.rotate([1,0,0], -90)
         self.plane.scale(8.0)
-        self.plane.translate([0.5, -1.07,0.0])
+        self.plane.translate([0.0, -0.01,0.0])
 
         self.timer.timeout.connect(self.simulation_widget.update_simulation)
         
@@ -200,31 +200,51 @@ class MainWindow(QMainWindow):
     
     def set_default(self):
 
-        self.num_particles_x.setValue(5)
-        self.num_particles_y.setValue(5)
+        self.num_particles_x.setValue(10)
+        self.num_particles_y.setValue(10)
         self.cloth_width.setValue(1.0)
         self.cloth_height.setValue(1.0)
 
-        self.rotate_cloth_angle.setValue(0)
+        self.rotate_cloth_angle.setValue(90)
         self.rotate_cloth_axis.setCurrentText("X")
 
-        self.translate_x.setValue(0.0)
-        self.translate_y.setValue(0.0)
-        self.translate_z.setValue(0.0)
+        self.translate_x.setValue(-0.5)
+        self.translate_y.setValue(0.8)
+        self.translate_z.setValue(-0.5)
 
         self.add_solid_check_box.setChecked(True)
         self.add_floor_check_box.setChecked(True)
         self.collision_object.setCurrentText("Cube")
 
-        self.cube_size.setValue(1.0)
+        self.cube_size.setValue(0.5)
         self.cube_rotate_angle.setValue(0)
         self.cube_axis.setCurrentText("X")
 
-        self.cube_translate_x.setValue(0.5)
-        self.cube_translate_y.setValue(-0.8)
-        self.cube_translate_z.setValue(0.5)
-        self.cube_scale_factor.setValue(0.5)
-        
+        self.cube_translate_x.setValue(0.0)
+        self.cube_translate_y.setValue(0.25)
+        self.cube_translate_z.setValue(0.0)
+        self.cube_scale_factor.setValue(1.0)
+
+        self.sphere_radius.setValue(0.5)
+        self.sphere_angle.setValue(0)
+        self.sphere_axis.setCurrentText("X")
+
+        self.sphere_translate_x.setValue(0.0)
+        self.sphere_translate_y.setValue(0.25)
+        self.sphere_translate_z.setValue(0.0)
+        self.sphere_scale_factor.setValue(1.0)
+
+
+        self.pyramid_height.setValue(0.5)
+        self.pyramid_base.setValue(8)
+        self.pyramid_radius.setValue(0.5)
+        self.pyramid_angle.setValue(-90)
+        self.pyramid_axis.setCurrentText("X")
+        self.pyramid_translate_x.setValue(0.0)
+        self.pyramid_translate_y.setValue(0.0)
+        self.pyramid_translate_z.setValue(0.0)
+        self.pyramid_scale.setValue(1.0)
+    
         self.update_collision_object_fields()
 
 
@@ -244,6 +264,7 @@ class MainWindow(QMainWindow):
         cloth.translate([translate_x,translate_y,translate_z])
 
         current_item = self.collision_object.currentText()
+        self.update_collision_object_fields()
         if current_item == "Cube":
             cube_size = self.cube_size.value()
             cube_rotate_angle = self.cube_rotate_angle.value()
@@ -261,6 +282,40 @@ class MainWindow(QMainWindow):
 
             self.simulation_widget.solids = [cube]
 
+        elif current_item == "Sphere":
+            sphere_raidus = self.sphere_radius.value()
+            sphere_rotate_angle = self.sphere_angle.value()
+            sphere_axis = AXIS_DICT[self.sphere_axis.currentText()]
+
+            sphere_translate_x = self.sphere_translate_x.value()
+            sphere_translate_y = self.sphere_translate_y.value()
+            sphere_translate_z = self.sphere_translate_z.value()
+            sphere_scale_factor = self.sphere_scale_factor.value()
+
+            sphere = Sphere([0,0,0], sphere_raidus)
+            sphere.rotate(sphere_axis, sphere_rotate_angle)
+            sphere.translate([sphere_translate_x,sphere_translate_y,sphere_translate_z])
+            sphere.scale(sphere_scale_factor)
+            self.simulation_widget.solids = [sphere]
+        
+        elif current_item == "Pyramid":
+            pyramid_height = self.pyramid_height.value()
+            pyramid_base = self.pyramid_base.value()
+            pyramid_radius = self.pyramid_radius.value()
+            pyramid_angle = self.pyramid_angle.value()
+            pyramid_axis = AXIS_DICT[self.pyramid_axis.currentText()]
+            pyramid_translate_x = self.pyramid_translate_x.value()
+            pyramid_translate_y = self.pyramid_translate_y.value()
+            pyramid_translate_z = self.pyramid_translate_z.value()
+            pyramid_scale = self.pyramid_scale.value()
+
+            pyramid = Pyramid([0.0, 0.0, 0.0], pyramid_base, pyramid_height, pyramid_radius)
+            pyramid.rotate(pyramid_axis, pyramid_angle)
+            pyramid.translate([pyramid_translate_x,pyramid_translate_y,pyramid_translate_z])
+            pyramid.scale([pyramid_scale, pyramid_scale, pyramid_scale])
+
+            self.simulation_widget.solids = [pyramid]
+
         self.simulation_widget.cloth = cloth
 
     def toggle_combobox(self, checked):
@@ -270,7 +325,7 @@ class MainWindow(QMainWindow):
         else :
             self.cube_group_box.setVisible(False)
             self.sphere_group_box.setVisible(False)
-            self.cone_group_box.setVisible(False)
+            self.pyramid_group_box.setVisible(False)
     
     def toggle_floor(self, checked):
         if checked and self.plane not in self.simulation_widget.solids:
@@ -284,15 +339,15 @@ class MainWindow(QMainWindow):
         if current_item == "Cube":
             self.cube_group_box.setVisible(True)
             self.sphere_group_box.setVisible(False)
-            self.cone_group_box.setVisible(False)
+            self.pyramid_group_box.setVisible(False)
         elif current_item == "Sphere":
             self.cube_group_box.setVisible(False)
             self.sphere_group_box.setVisible(True)
-            self.cone_group_box.setVisible(False)
-        elif current_item == "Cone":
+            self.pyramid_group_box.setVisible(False)
+        elif current_item == "Pyramid":
             self.cube_group_box.setVisible(False)
             self.sphere_group_box.setVisible(False)
-            self.cone_group_box.setVisible(True)
+            self.pyramid_group_box.setVisible(True)
 
     def start_simulation(self):
         timer_interval = 1
@@ -305,6 +360,12 @@ class MainWindow(QMainWindow):
     def restart_simulation(self):
         self.stop_simulation()
         self.set_values_simulation()
+        
+        if not self.add_solid_check_box.isChecked() :
+            self.simulation_widget.solids = []
+            self.cube_group_box.setVisible(False)
+            self.sphere_group_box.setVisible(False)
+            self.pyramid_group_box.setVisible(False)
         if self.add_floor_check_box.isChecked() and self.plane not in self.simulation_widget.solids:
             self.simulation_widget.solids.append(self.plane)
         self.start_simulation()
