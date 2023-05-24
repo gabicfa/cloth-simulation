@@ -2,7 +2,7 @@ from Simulation.ClothElements import Particle, Spring, Quadruple, Triple
 from scipy.sparse import lil_matrix, identity
 from scipy.sparse.linalg import cg
 import numpy as np
-from Simulation.Solid import Solid
+from Solids.Solid import Solid
 
 class Cloth:
     def __init__(self, num_particles_x = 20, num_particles_y = 20, cloth_width = 3, cloth_height = 1, fix_first_line = False):

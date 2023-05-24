@@ -1,6 +1,6 @@
 import numpy as np
-from Simulation.Solid import Solid
-from Simulation.Triangle import Triangle
+from Solids.Solid import Solid
+from Solids.Triangle import Triangle
 
 class Plane(Solid):
     def __init__(self, center=[0.0, 0.0, 0.0], width=1.0, height=1.0, normal=[0.0, 0.0, 1.0]):

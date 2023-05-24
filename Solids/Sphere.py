@@ -1,6 +1,6 @@
 import numpy as np
-from Simulation.Triangle import Triangle
-from Simulation.Solid import Solid
+from Solids.Triangle import Triangle
+from Solids.Solid import Solid
 
 class Sphere(Solid):
     def __init__(self, center=[0.0, 0.0, 0.0], radius=0.5):

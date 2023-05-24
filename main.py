@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import sys
-sys.path.append('../')  # Adds the parent directory to Python's module search path
+# sys.path.append('../')  # Adds the parent directory to Python's module search path
 
 import numpy as np
 from PyQt5.QtCore import *
@@ -9,10 +9,10 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QOpenGLWidget, QVBoxLayou
 from PyQt5 import uic
 
 from Simulation.Cloth import Cloth
-from Simulation.Sphere import Sphere
-from Simulation.Cube import Cube
-from Simulation.Pyramid import Pyramid
-from Simulation.Plane import Plane
+from Solids.Sphere import Sphere
+from Solids.Cube import Cube
+from Solids.Pyramid import Pyramid
+from Solids.Plane import Plane
 
 from OpenGL.GL import *
 from OpenGL.GLU import *
@@ -128,7 +128,7 @@ class MainWindow(QMainWindow):
     def __init__(self, *args, **kwargs):
         super(QMainWindow, self).__init__(*args, **kwargs)
 
-        uic.loadUi('mainwindow.ui', self)
+        uic.loadUi('ClothSimulationGUI/mainwindow.ui', self)
 
         # Create your SimulationWidget and assign the solids and cloth instances
         self.simulation_widget = SimulationWidget(self.simulationWidget)
@@ -152,19 +152,6 @@ class MainWindow(QMainWindow):
         self.simulation_widget.solids.append(self.plane)
         self.add_solid_check_box.toggled.connect(self.toggle_combobox)
         self.add_floor_check_box.toggled.connect(self.toggle_floor)
-
-        # sphere = Sphere()
-        # cube = Cube()
-        # pyramid = Pyramid()
-        
-        # pyramid.rotate([1,0,0], -90)
-        # pyramid.translate([1.25,-1.05,0.5])
-
-        # cube.scale([0.5,0.5,0.5])
-        # cube.translate([-0.2,-0.8,0.5])
-
-        # sphere.scale(0.7)
-        # sphere.translate([0.5,-0.75,0.5])
 
         layout = QVBoxLayout(self.simulationWidget)
         layout.addWidget(self.simulation_widget)

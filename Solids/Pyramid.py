@@ -1,6 +1,6 @@
 import numpy as np
-from Simulation.Triangle import Triangle
-from Simulation.Solid import Solid
+from Solids.Triangle import Triangle
+from Solids.Solid import Solid
 
 class Pyramid(Solid):
     def __init__(self, center=[0.0, 0.0, 0.0], base=8, height=0.5, radius = 0.5):
