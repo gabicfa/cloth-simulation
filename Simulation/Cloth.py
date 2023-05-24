@@ -1,28 +1,20 @@
-from ClothElements import Particle, Spring, Quadruple, Triple
+from Simulation.ClothElements import Particle, Spring, Quadruple, Triple
 from scipy.sparse import lil_matrix, identity
 from scipy.sparse.linalg import cg
 import numpy as np
-from Solid import Solid
+from Simulation.Solid import Solid
+
 class Cloth:
-    def __init__(self, num_particles_x = 20, num_particles_y = 20, cloth_width = 3, cloth_height = 1):
+    def __init__(self, num_particles_x = 20, num_particles_y = 20, cloth_width = 3, cloth_height = 1, fix_first_line = False):
         self.particles = []
         self.springs = []
         self.springs_dict = {}
         self.triples = []
         self.quadruples = []
 
-        # self.damping = 1
-        # self.mass = 1
-        # self.stiffness = 20 * num_particles_x * num_particles_y 
-        # self.shearing_stiffness = 10
-        # self.bending_stiffness = 5
-        # self.rotation_angle_x = 90
-        # self.friction_coefficient = 10
-        # self.restitution_coefficient = 0.1
-
         self.damping = 1
         self.mass = 1
-        self.stiffness = 20 * num_particles_x * num_particles_y 
+        self.stiffness = 20 * num_particles_x * num_particles_y
         self.shearing_stiffness = 10
         self.bending_stiffness = 5
         self.friction_coefficient = 10
@@ -34,8 +26,9 @@ class Cloth:
         for j in range(num_particles_y):
             for i in range(num_particles_x):
                 is_fixed = False
-                # if (j == num_particles_y-1) :
-                #     is_fixed = True
+                if fix_first_line:
+                    if j == num_particles_y-1 :
+                        is_fixed = True
                 position = np.array([cloth_width * i / (num_particles_x - 1), cloth_height * j / (num_particles_y - 1), 0.0])
                 particle = Particle(self.mass, position, is_fixed)
                 self.particles.append(particle)
@@ -110,6 +103,12 @@ class Cloth:
 
         for particle in self.particles:
             particle.position = np.dot(rotation_matrix, particle.position)
+    
+    def reset(self):
+        for particle in self.particles:
+            particle.position = particle.initial_position
+            particle.velocity = np.zeros(3)
+            particle.force = np.zeros(3)
 
     # --------- FORCES --------- #
 

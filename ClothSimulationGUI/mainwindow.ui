@@ -1,0 +1,1623 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1116</width>
+    <height>702</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>ClothSimulation</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QFrame" name="frame">
+      <property name="locale">
+       <locale language="English" country="UnitedStates"/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QWidget" name="simulationWidget" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>2</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="focusPolicy">
+          <enum>Qt::StrongFocus</enum>
+         </property>
+         <property name="locale">
+          <locale language="English" country="UnitedStates"/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="inputs_box">
+         <item>
+          <widget class="QGroupBox" name="input">
+           <property name="locale">
+            <locale language="English" country="UnitedStates"/>
+           </property>
+           <property name="title">
+            <string>Simulation Inputs</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout">
+            <item>
+             <widget class="QScrollArea" name="scrollArea">
+              <property name="focusPolicy">
+               <enum>Qt::NoFocus</enum>
+              </property>
+              <property name="locale">
+               <locale language="English" country="UnitedStates"/>
+              </property>
+              <property name="widgetResizable">
+               <bool>true</bool>
+              </property>
+              <widget class="QWidget" name="scrollAreaWidgetContents">
+               <property name="geometry">
+                <rect>
+                 <x>0</x>
+                 <y>0</y>
+                 <width>342</width>
+                 <height>1578</height>
+                </rect>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_2">
+                <item>
+                 <widget class="QGroupBox" name="cloth_input">
+                  <property name="locale">
+                   <locale language="English" country="UnitedStates"/>
+                  </property>
+                  <property name="title">
+                   <string>Cloth</string>
+                  </property>
+                  <layout class="QGridLayout" name="gridLayout_3">
+                   <item row="3" column="0">
+                    <layout class="QGridLayout" name="num_particle_grid">
+                     <item row="2" column="0">
+                      <layout class="QGridLayout" name="num_particles_input">
+                       <item row="4" column="0">
+                        <layout class="QFormLayout" name="formLayout_3">
+                         <item row="0" column="0">
+                          <widget class="QLabel" name="num_particles_x_label">
+                           <property name="locale">
+                            <locale language="English" country="UnitedStates"/>
+                           </property>
+                           <property name="text">
+                            <string>x</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="0" column="1">
+                          <widget class="QSpinBox" name="num_particles_x">
+                           <property name="locale">
+                            <locale language="English" country="UnitedStates"/>
+                           </property>
+                           <property name="minimum">
+                            <number>2</number>
+                           </property>
+                           <property name="maximum">
+                            <number>30</number>
+                           </property>
+                           <property name="value">
+                            <number>10</number>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </item>
+                       <item row="4" column="1">
+                        <layout class="QFormLayout" name="formLayout_4">
+                         <item row="0" column="0">
+                          <widget class="QLabel" name="num_particles_y_label">
+                           <property name="locale">
+                            <locale language="English" country="UnitedStates"/>
+                           </property>
+                           <property name="text">
+                            <string>y</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="0" column="1">
+                          <widget class="QSpinBox" name="num_particles_y">
+                           <property name="locale">
+                            <locale language="English" country="UnitedStates"/>
+                           </property>
+                           <property name="minimum">
+                            <number>2</number>
+                           </property>
+                           <property name="maximum">
+                            <number>30</number>
+                           </property>
+                           <property name="value">
+                            <number>10</number>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </item>
+                      </layout>
+                     </item>
+                     <item row="1" column="0">
+                      <widget class="QLabel" name="num_particles_label">
+                       <property name="locale">
+                        <locale language="English" country="UnitedStates"/>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Plain</enum>
+                       </property>
+                       <property name="lineWidth">
+                        <number>1</number>
+                       </property>
+                       <property name="midLineWidth">
+                        <number>0</number>
+                       </property>
+                       <property name="text">
+                        <string>Number of particles</string>
+                       </property>
+                       <property name="textFormat">
+                        <enum>Qt::AutoText</enum>
+                       </property>
+                       <property name="indent">
+                        <number>-1</number>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                   <item row="1" column="0">
+                    <layout class="QGridLayout" name="dimensions_grid">
+                     <item row="2" column="0">
+                      <layout class="QGridLayout" name="dimensions_input">
+                       <item row="0" column="0">
+                        <layout class="QFormLayout" name="formLayout">
+                         <item row="0" column="0">
+                          <widget class="QLabel" name="cloth_width_label">
+                           <property name="locale">
+                            <locale language="English" country="UnitedStates"/>
+                           </property>
+                           <property name="text">
+                            <string>width</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="0" column="1">
+                          <widget class="QDoubleSpinBox" name="cloth_width">
+                           <property name="locale">
+                            <locale language="English" country="UnitedStates"/>
+                           </property>
+                           <property name="minimum">
+                            <double>0.100000000000000</double>
+                           </property>
+                           <property name="maximum">
+                            <double>30.000000000000000</double>
+                           </property>
+                           <property name="value">
+                            <double>1.000000000000000</double>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </item>
+                       <item row="0" column="1">
+                        <layout class="QFormLayout" name="formLayout_2">
+                         <item row="0" column="0">
+                          <widget class="QLabel" name="cloth_height_label">
+                           <property name="locale">
+                            <locale language="English" country="UnitedStates"/>
+                           </property>
+                           <property name="text">
+                            <string>height</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="0" column="1">
+                          <widget class="QDoubleSpinBox" name="cloth_height">
+                           <property name="locale">
+                            <locale language="English" country="UnitedStates"/>
+                           </property>
+                           <property name="minimum">
+                            <double>0.100000000000000</double>
+                           </property>
+                           <property name="maximum">
+                            <double>30.000000000000000</double>
+                           </property>
+                           <property name="value">
+                            <double>1.000000000000000</double>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </item>
+                      </layout>
+                     </item>
+                     <item row="1" column="0">
+                      <widget class="QLabel" name="dimensions_label">
+                       <property name="locale">
+                        <locale language="English" country="UnitedStates"/>
+                       </property>
+                       <property name="text">
+                        <string>Dimensions</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                   <item row="7" column="0">
+                    <layout class="QGridLayout" name="translate_cloth_grid">
+                     <item row="1" column="0">
+                      <layout class="QGridLayout" name="position_grid">
+                       <item row="2" column="0">
+                        <layout class="QFormLayout" name="formLayout_7">
+                         <item row="0" column="0">
+                          <widget class="QLabel" name="translate_x_label">
+                           <property name="locale">
+                            <locale language="English" country="UnitedStates"/>
+                           </property>
+                           <property name="text">
+                            <string>x</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="0" column="1">
+                          <widget class="QDoubleSpinBox" name="translate_x">
+                           <property name="locale">
+                            <locale language="English" country="UnitedStates"/>
+                           </property>
+                           <property name="minimum">
+                            <double>-100.000000000000000</double>
+                           </property>
+                           <property name="maximum">
+                            <double>100.000000000000000</double>
+                           </property>
+                           <property name="value">
+                            <double>-0.500000000000000</double>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </item>
+                       <item row="2" column="1">
+                        <layout class="QFormLayout" name="formLayout_8">
+                         <item row="0" column="0">
+                          <widget class="QLabel" name="translate_y_label">
+                           <property name="locale">
+                            <locale language="English" country="UnitedStates"/>
+                           </property>
+                           <property name="text">
+                            <string>y</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="0" column="1">
+                          <widget class="QDoubleSpinBox" name="translate_y">
+                           <property name="locale">
+                            <locale language="English" country="UnitedStates"/>
+                           </property>
+                           <property name="minimum">
+                            <double>-100.000000000000000</double>
+                           </property>
+                           <property name="maximum">
+                            <double>100.000000000000000</double>
+                           </property>
+                           <property name="value">
+                            <double>0.800000000000000</double>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </item>
+                       <item row="2" column="2">
+                        <layout class="QFormLayout" name="formLayout_9">
+                         <item row="0" column="0">
+                          <widget class="QLabel" name="translate_z_label">
+                           <property name="locale">
+                            <locale language="English" country="UnitedStates"/>
+                           </property>
+                           <property name="text">
+                            <string>z</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="0" column="1">
+                          <widget class="QDoubleSpinBox" name="translate_z">
+                           <property name="locale">
+                            <locale language="English" country="UnitedStates"/>
+                           </property>
+                           <property name="minimum">
+                            <double>-100.000000000000000</double>
+                           </property>
+                           <property name="maximum">
+                            <double>100.000000000000000</double>
+                           </property>
+                           <property name="value">
+                            <double>-0.500000000000000</double>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </item>
+                      </layout>
+                     </item>
+                     <item row="0" column="0">
+                      <widget class="QLabel" name="position_label">
+                       <property name="locale">
+                        <locale language="English" country="UnitedStates"/>
+                       </property>
+                       <property name="lineWidth">
+                        <number>1</number>
+                       </property>
+                       <property name="text">
+                        <string>Translate</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                   <item row="6" column="0">
+                    <widget class="Line" name="line_3">
+                     <property name="locale">
+                      <locale language="English" country="UnitedStates"/>
+                     </property>
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="9" column="0">
+                    <widget class="QCheckBox" name="fix_first_line">
+                     <property name="text">
+                      <string>Fix first line of particles</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="0">
+                    <widget class="Line" name="line">
+                     <property name="locale">
+                      <locale language="English" country="UnitedStates"/>
+                     </property>
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="4" column="0">
+                    <widget class="Line" name="line_2">
+                     <property name="locale">
+                      <locale language="English" country="UnitedStates"/>
+                     </property>
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="5" column="0">
+                    <layout class="QGridLayout" name="rotate_cloth_grid">
+                     <item row="0" column="0">
+                      <widget class="QLabel" name="rotate_cloth_label">
+                       <property name="locale">
+                        <locale language="English" country="UnitedStates"/>
+                       </property>
+                       <property name="text">
+                        <string>Rotate</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="1" column="0">
+                      <layout class="QGridLayout" name="rotate_cloth_input">
+                       <item row="2" column="0">
+                        <layout class="QFormLayout" name="formLayout_5">
+                         <item row="0" column="0">
+                          <widget class="QLabel" name="rotate_cloth_angle_label">
+                           <property name="locale">
+                            <locale language="English" country="UnitedStates"/>
+                           </property>
+                           <property name="text">
+                            <string>angle</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="0" column="1">
+                          <widget class="QSpinBox" name="rotate_cloth_angle">
+                           <property name="locale">
+                            <locale language="English" country="UnitedStates"/>
+                           </property>
+                           <property name="minimum">
+                            <number>-360</number>
+                           </property>
+                           <property name="maximum">
+                            <number>360</number>
+                           </property>
+                           <property name="value">
+                            <number>90</number>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </item>
+                       <item row="2" column="1">
+                        <layout class="QFormLayout" name="formLayout_6">
+                         <item row="0" column="0">
+                          <widget class="QLabel" name="rotate_cloth_axis_label">
+                           <property name="locale">
+                            <locale language="English" country="UnitedStates"/>
+                           </property>
+                           <property name="text">
+                            <string>axis</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="0" column="1">
+                          <widget class="QComboBox" name="rotate_cloth_axis">
+                           <property name="enabled">
+                            <bool>true</bool>
+                           </property>
+                           <property name="locale">
+                            <locale language="English" country="UnitedStates"/>
+                           </property>
+                           <property name="editable">
+                            <bool>false</bool>
+                           </property>
+                           <property name="minimumContentsLength">
+                            <number>1</number>
+                           </property>
+                           <item>
+                            <property name="text">
+                             <string>X</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>Y</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>Z</string>
+                            </property>
+                           </item>
+                          </widget>
+                         </item>
+                        </layout>
+                       </item>
+                      </layout>
+                     </item>
+                    </layout>
+                   </item>
+                   <item row="8" column="0">
+                    <widget class="Line" name="line_15">
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_2">
+                  <property name="locale">
+                   <locale language="English" country="UnitedStates"/>
+                  </property>
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
+                 <widget class="QGroupBox" name="collision_object_group_box">
+                  <property name="locale">
+                   <locale language="English" country="UnitedStates"/>
+                  </property>
+                  <property name="title">
+                   <string>Collision Object</string>
+                  </property>
+                  <layout class="QGridLayout" name="gridLayout">
+                   <item row="4" column="0">
+                    <widget class="QGroupBox" name="sphere_group_box">
+                     <property name="locale">
+                      <locale language="English" country="UnitedStates"/>
+                     </property>
+                     <property name="title">
+                      <string>Sphere</string>
+                     </property>
+                     <layout class="QVBoxLayout" name="verticalLayout_4">
+                      <item>
+                       <layout class="QGridLayout" name="sphere_radius_box">
+                        <item row="0" column="0">
+                         <layout class="QFormLayout" name="sphere_radius_values">
+                          <item row="0" column="0">
+                           <widget class="QLabel" name="sphere_radius_label">
+                            <property name="locale">
+                             <locale language="English" country="UnitedStates"/>
+                            </property>
+                            <property name="text">
+                             <string>Radius</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="1">
+                           <widget class="QDoubleSpinBox" name="sphere_radius">
+                            <property name="locale">
+                             <locale language="English" country="UnitedStates"/>
+                            </property>
+                            <property name="minimum">
+                             <double>0.100000000000000</double>
+                            </property>
+                            <property name="value">
+                             <double>0.500000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                       </layout>
+                      </item>
+                      <item>
+                       <widget class="Line" name="line_7">
+                        <property name="locale">
+                         <locale language="English" country="UnitedStates"/>
+                        </property>
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <layout class="QGridLayout" name="sphere_rotate_box">
+                        <item row="0" column="0">
+                         <widget class="QLabel" name="sphere_rotate_box_label">
+                          <property name="locale">
+                           <locale language="English" country="UnitedStates"/>
+                          </property>
+                          <property name="text">
+                           <string>Rotate</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="1" column="0">
+                         <layout class="QGridLayout" name="sphere_rotate_values">
+                          <item row="0" column="0">
+                           <layout class="QFormLayout" name="sphere_rotate_angle_box">
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="sphere_rotate_angle_label">
+                              <property name="locale">
+                               <locale language="English" country="UnitedStates"/>
+                              </property>
+                              <property name="text">
+                               <string>angle</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="0" column="1">
+                             <widget class="QSpinBox" name="sphere_angle">
+                              <property name="locale">
+                               <locale language="English" country="UnitedStates"/>
+                              </property>
+                              <property name="minimum">
+                               <number>-360</number>
+                              </property>
+                              <property name="maximum">
+                               <number>360</number>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="0" column="1">
+                           <layout class="QFormLayout" name="formLayout_20">
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="sphere_rotate_axis_label">
+                              <property name="locale">
+                               <locale language="English" country="UnitedStates"/>
+                              </property>
+                              <property name="text">
+                               <string>axis</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="0" column="1">
+                             <widget class="QComboBox" name="sphere_axis">
+                              <property name="enabled">
+                               <bool>true</bool>
+                              </property>
+                              <property name="locale">
+                               <locale language="English" country="UnitedStates"/>
+                              </property>
+                              <item>
+                               <property name="text">
+                                <string>X</string>
+                               </property>
+                              </item>
+                              <item>
+                               <property name="text">
+                                <string>Y</string>
+                               </property>
+                              </item>
+                              <item>
+                               <property name="text">
+                                <string>Z</string>
+                               </property>
+                              </item>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                         </layout>
+                        </item>
+                       </layout>
+                      </item>
+                      <item>
+                       <widget class="Line" name="line_14">
+                        <property name="locale">
+                         <locale language="English" country="UnitedStates"/>
+                        </property>
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <layout class="QGridLayout" name="sphere_translate_box">
+                        <item row="1" column="0">
+                         <layout class="QGridLayout" name="sphere_translate_values_box">
+                          <item row="0" column="0">
+                           <layout class="QFormLayout" name="sphere_translate_x_box">
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="sphere_translate_x_label">
+                              <property name="locale">
+                               <locale language="English" country="UnitedStates"/>
+                              </property>
+                              <property name="text">
+                               <string>x</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="0" column="1">
+                             <widget class="QDoubleSpinBox" name="sphere_translate_x">
+                              <property name="locale">
+                               <locale language="English" country="UnitedStates"/>
+                              </property>
+                              <property name="minimum">
+                               <double>-99.000000000000000</double>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="0" column="2">
+                           <layout class="QFormLayout" name="sphere_translate_z_box">
+                            <item row="0" column="1">
+                             <widget class="QDoubleSpinBox" name="sphere_translate_z">
+                              <property name="locale">
+                               <locale language="English" country="UnitedStates"/>
+                              </property>
+                              <property name="minimum">
+                               <double>-99.000000000000000</double>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="sphere_translate_z_label">
+                              <property name="locale">
+                               <locale language="English" country="UnitedStates"/>
+                              </property>
+                              <property name="text">
+                               <string>z</string>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="0" column="1">
+                           <layout class="QFormLayout" name="sphere_translate_y_box">
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="sphere_translate_y_label">
+                              <property name="locale">
+                               <locale language="English" country="UnitedStates"/>
+                              </property>
+                              <property name="text">
+                               <string>y</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="0" column="1">
+                             <widget class="QDoubleSpinBox" name="sphere_translate_y">
+                              <property name="locale">
+                               <locale language="English" country="UnitedStates"/>
+                              </property>
+                              <property name="minimum">
+                               <double>-99.000000000000000</double>
+                              </property>
+                              <property name="value">
+                               <double>0.250000000000000</double>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                         </layout>
+                        </item>
+                        <item row="0" column="0">
+                         <widget class="QLabel" name="sphere_translate_box_label">
+                          <property name="locale">
+                           <locale language="English" country="UnitedStates"/>
+                          </property>
+                          <property name="text">
+                           <string>Translate</string>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </item>
+                      <item>
+                       <widget class="Line" name="line_8">
+                        <property name="locale">
+                         <locale language="English" country="UnitedStates"/>
+                        </property>
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <layout class="QGridLayout" name="sphere_scale_box">
+                        <item row="0" column="0">
+                         <widget class="QLabel" name="sphere_scale_box_label">
+                          <property name="locale">
+                           <locale language="English" country="UnitedStates"/>
+                          </property>
+                          <property name="text">
+                           <string>Uniform scale</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="1" column="0">
+                         <layout class="QFormLayout" name="sphere_scale_box_2">
+                          <item row="0" column="0">
+                           <widget class="QLabel" name="sphere_scale_label">
+                            <property name="locale">
+                             <locale language="English" country="UnitedStates"/>
+                            </property>
+                            <property name="text">
+                             <string>factor</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="1">
+                           <widget class="QDoubleSpinBox" name="sphere_scale_factor">
+                            <property name="locale">
+                             <locale language="English" country="UnitedStates"/>
+                            </property>
+                            <property name="minimum">
+                             <double>0.100000000000000</double>
+                            </property>
+                            <property name="maximum">
+                             <double>5.000000000000000</double>
+                            </property>
+                            <property name="value">
+                             <double>1.000000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                       </layout>
+                      </item>
+                     </layout>
+                    </widget>
+                   </item>
+                   <item row="3" column="0">
+                    <widget class="QGroupBox" name="cube_group_box">
+                     <property name="locale">
+                      <locale language="English" country="UnitedStates"/>
+                     </property>
+                     <property name="title">
+                      <string>Cube</string>
+                     </property>
+                     <layout class="QVBoxLayout" name="verticalLayout_3">
+                      <item>
+                       <layout class="QFormLayout" name="cube_size_box">
+                        <item row="0" column="0">
+                         <widget class="QLabel" name="cube_size_label">
+                          <property name="locale">
+                           <locale language="English" country="UnitedStates"/>
+                          </property>
+                          <property name="text">
+                           <string>Size</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="0" column="1">
+                         <widget class="QDoubleSpinBox" name="cube_size">
+                          <property name="locale">
+                           <locale language="English" country="UnitedStates"/>
+                          </property>
+                          <property name="value">
+                           <double>0.500000000000000</double>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </item>
+                      <item>
+                       <widget class="Line" name="line_4">
+                        <property name="locale">
+                         <locale language="English" country="UnitedStates"/>
+                        </property>
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <layout class="QGridLayout" name="cube_rotate">
+                        <item row="0" column="0">
+                         <widget class="QLabel" name="cube_rotate_label">
+                          <property name="locale">
+                           <locale language="English" country="UnitedStates"/>
+                          </property>
+                          <property name="text">
+                           <string>Rotate</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="1" column="0">
+                         <layout class="QGridLayout" name="cube_rotate_box">
+                          <item row="0" column="0">
+                           <layout class="QFormLayout" name="cube_rotate_angle_box">
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="cube_rotate_angle_label">
+                              <property name="locale">
+                               <locale language="English" country="UnitedStates"/>
+                              </property>
+                              <property name="text">
+                               <string>angle</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="0" column="1">
+                             <widget class="QSpinBox" name="cube_rotate_angle">
+                              <property name="locale">
+                               <locale language="English" country="UnitedStates"/>
+                              </property>
+                              <property name="minimum">
+                               <number>-360</number>
+                              </property>
+                              <property name="maximum">
+                               <number>360</number>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="0" column="1">
+                           <layout class="QFormLayout" name="cube_axis_box">
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="cube_axis_label">
+                              <property name="locale">
+                               <locale language="English" country="UnitedStates"/>
+                              </property>
+                              <property name="text">
+                               <string>axis</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="0" column="1">
+                             <widget class="QComboBox" name="cube_axis">
+                              <property name="enabled">
+                               <bool>true</bool>
+                              </property>
+                              <property name="locale">
+                               <locale language="English" country="UnitedStates"/>
+                              </property>
+                              <item>
+                               <property name="text">
+                                <string>X</string>
+                               </property>
+                              </item>
+                              <item>
+                               <property name="text">
+                                <string>Y</string>
+                               </property>
+                              </item>
+                              <item>
+                               <property name="text">
+                                <string>Z</string>
+                               </property>
+                              </item>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                         </layout>
+                        </item>
+                       </layout>
+                      </item>
+                      <item>
+                       <widget class="Line" name="line_5">
+                        <property name="locale">
+                         <locale language="English" country="UnitedStates"/>
+                        </property>
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <layout class="QGridLayout" name="cube_translate_box">
+                        <item row="0" column="0">
+                         <widget class="QLabel" name="cube_translate_label">
+                          <property name="locale">
+                           <locale language="English" country="UnitedStates"/>
+                          </property>
+                          <property name="text">
+                           <string>Translate</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="1" column="0">
+                         <layout class="QGridLayout" name="cube_translate_box_values">
+                          <item row="0" column="0">
+                           <layout class="QFormLayout" name="cube_translate_x_box">
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="cube_translate_x_label">
+                              <property name="locale">
+                               <locale language="English" country="UnitedStates"/>
+                              </property>
+                              <property name="text">
+                               <string>x</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="0" column="1">
+                             <widget class="QDoubleSpinBox" name="cube_translate_x">
+                              <property name="locale">
+                               <locale language="English" country="UnitedStates"/>
+                              </property>
+                              <property name="minimum">
+                               <double>-99.000000000000000</double>
+                              </property>
+                              <property name="value">
+                               <double>0.000000000000000</double>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="0" column="1">
+                           <layout class="QFormLayout" name="cube_translate_y_box">
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="cube_translate_y_label">
+                              <property name="locale">
+                               <locale language="English" country="UnitedStates"/>
+                              </property>
+                              <property name="text">
+                               <string>y</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="0" column="1">
+                             <widget class="QDoubleSpinBox" name="cube_translate_y">
+                              <property name="locale">
+                               <locale language="English" country="UnitedStates"/>
+                              </property>
+                              <property name="minimum">
+                               <double>-99.000000000000000</double>
+                              </property>
+                              <property name="value">
+                               <double>0.250000000000000</double>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="0" column="2">
+                           <layout class="QFormLayout" name="cube_translate_z_box">
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="cube_translate_z_label">
+                              <property name="locale">
+                               <locale language="English" country="UnitedStates"/>
+                              </property>
+                              <property name="text">
+                               <string>z</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="0" column="1">
+                             <widget class="QDoubleSpinBox" name="cube_translate_z">
+                              <property name="locale">
+                               <locale language="English" country="UnitedStates"/>
+                              </property>
+                              <property name="minimum">
+                               <double>-99.000000000000000</double>
+                              </property>
+                              <property name="value">
+                               <double>0.000000000000000</double>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                         </layout>
+                        </item>
+                       </layout>
+                      </item>
+                      <item>
+                       <widget class="Line" name="line_6">
+                        <property name="locale">
+                         <locale language="English" country="UnitedStates"/>
+                        </property>
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <layout class="QGridLayout" name="cube_scale_box">
+                        <item row="0" column="0">
+                         <widget class="QLabel" name="cube_scale_label">
+                          <property name="locale">
+                           <locale language="English" country="UnitedStates"/>
+                          </property>
+                          <property name="text">
+                           <string>Uniform scale</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="1" column="0">
+                         <layout class="QFormLayout" name="cube_scale_factor_box">
+                          <item row="0" column="0">
+                           <widget class="QLabel" name="cube_scale_factor_label">
+                            <property name="locale">
+                             <locale language="English" country="UnitedStates"/>
+                            </property>
+                            <property name="text">
+                             <string>factor</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="1">
+                           <widget class="QDoubleSpinBox" name="cube_scale_factor">
+                            <property name="locale">
+                             <locale language="English" country="UnitedStates"/>
+                            </property>
+                            <property name="minimum">
+                             <double>0.100000000000000</double>
+                            </property>
+                            <property name="value">
+                             <double>1.000000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                       </layout>
+                      </item>
+                     </layout>
+                    </widget>
+                   </item>
+                   <item row="2" column="0">
+                    <widget class="QComboBox" name="collision_object">
+                     <property name="enabled">
+                      <bool>true</bool>
+                     </property>
+                     <property name="locale">
+                      <locale language="English" country="UnitedStates"/>
+                     </property>
+                     <property name="editable">
+                      <bool>false</bool>
+                     </property>
+                     <item>
+                      <property name="text">
+                       <string>Cube</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>Sphere</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>Pyramid</string>
+                      </property>
+                     </item>
+                    </widget>
+                   </item>
+                   <item row="0" column="0">
+                    <layout class="QGridLayout" name="collision_check_boxes">
+                     <item row="0" column="0">
+                      <widget class="QCheckBox" name="add_floor_check_box">
+                       <property name="locale">
+                        <locale language="English" country="UnitedStates"/>
+                       </property>
+                       <property name="text">
+                        <string>Add floor</string>
+                       </property>
+                       <property name="checked">
+                        <bool>true</bool>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="0" column="1">
+                      <widget class="QCheckBox" name="add_solid_check_box">
+                       <property name="locale">
+                        <locale language="English" country="UnitedStates"/>
+                       </property>
+                       <property name="text">
+                        <string>Add collision object</string>
+                       </property>
+                       <property name="checked">
+                        <bool>true</bool>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                   <item row="5" column="0">
+                    <widget class="QGroupBox" name="pyramid_group_box">
+                     <property name="enabled">
+                      <bool>true</bool>
+                     </property>
+                     <property name="locale">
+                      <locale language="English" country="UnitedStates"/>
+                     </property>
+                     <property name="title">
+                      <string>Pyramid</string>
+                     </property>
+                     <layout class="QVBoxLayout" name="verticalLayout_5">
+                      <item>
+                       <layout class="QFormLayout" name="pyramid_height_box">
+                        <item row="0" column="0">
+                         <widget class="QLabel" name="pyramid_height_label">
+                          <property name="locale">
+                           <locale language="English" country="UnitedStates"/>
+                          </property>
+                          <property name="text">
+                           <string>Height</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="0" column="1">
+                         <widget class="QDoubleSpinBox" name="pyramid_height">
+                          <property name="locale">
+                           <locale language="English" country="UnitedStates"/>
+                          </property>
+                          <property name="minimum">
+                           <double>0.100000000000000</double>
+                          </property>
+                          <property name="value">
+                           <double>0.500000000000000</double>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </item>
+                      <item>
+                       <widget class="Line" name="line_9">
+                        <property name="locale">
+                         <locale language="English" country="UnitedStates"/>
+                        </property>
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <layout class="QFormLayout" name="pyramid_base_box">
+                        <item row="0" column="0">
+                         <widget class="QLabel" name="pyramid_base_label">
+                          <property name="locale">
+                           <locale language="English" country="UnitedStates"/>
+                          </property>
+                          <property name="text">
+                           <string>Number of sides in the base</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="0" column="1">
+                         <widget class="QSpinBox" name="pyramid_base">
+                          <property name="locale">
+                           <locale language="English" country="UnitedStates"/>
+                          </property>
+                          <property name="minimum">
+                           <number>3</number>
+                          </property>
+                          <property name="maximum">
+                           <number>15</number>
+                          </property>
+                          <property name="value">
+                           <number>8</number>
+                          </property>
+                          <property name="displayIntegerBase">
+                           <number>10</number>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </item>
+                      <item>
+                       <widget class="Line" name="line_10">
+                        <property name="locale">
+                         <locale language="English" country="UnitedStates"/>
+                        </property>
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <layout class="QFormLayout" name="pyramid_radius_box">
+                        <item row="0" column="0">
+                         <widget class="QLabel" name="pyramid_radius_label">
+                          <property name="locale">
+                           <locale language="English" country="UnitedStates"/>
+                          </property>
+                          <property name="text">
+                           <string>Base radius</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="0" column="1">
+                         <widget class="QDoubleSpinBox" name="pyramid_radius">
+                          <property name="locale">
+                           <locale language="English" country="UnitedStates"/>
+                          </property>
+                          <property name="minimum">
+                           <double>0.100000000000000</double>
+                          </property>
+                          <property name="value">
+                           <double>0.500000000000000</double>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </item>
+                      <item>
+                       <widget class="Line" name="line_13">
+                        <property name="locale">
+                         <locale language="English" country="UnitedStates"/>
+                        </property>
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <layout class="QGridLayout" name="pyramid_rotate_box">
+                        <item row="0" column="0">
+                         <widget class="QLabel" name="pyramid_rotate_label">
+                          <property name="locale">
+                           <locale language="English" country="UnitedStates"/>
+                          </property>
+                          <property name="text">
+                           <string>Rotate</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="1" column="0">
+                         <layout class="QGridLayout" name="pyramid_rotate_values">
+                          <item row="0" column="0">
+                           <layout class="QFormLayout" name="pyramid_angle_box">
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="pyramid_angle_label">
+                              <property name="locale">
+                               <locale language="English" country="UnitedStates"/>
+                              </property>
+                              <property name="text">
+                               <string>angle</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="0" column="1">
+                             <widget class="QSpinBox" name="pyramid_angle">
+                              <property name="locale">
+                               <locale language="English" country="UnitedStates"/>
+                              </property>
+                              <property name="minimum">
+                               <number>-360</number>
+                              </property>
+                              <property name="maximum">
+                               <number>360</number>
+                              </property>
+                              <property name="value">
+                               <number>-90</number>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="0" column="1">
+                           <layout class="QFormLayout" name="pyramid_axis_box">
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="pyramid_axis_label">
+                              <property name="locale">
+                               <locale language="English" country="UnitedStates"/>
+                              </property>
+                              <property name="text">
+                               <string>axis</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="0" column="1">
+                             <widget class="QComboBox" name="pyramid_axis">
+                              <property name="locale">
+                               <locale language="English" country="UnitedStates"/>
+                              </property>
+                              <item>
+                               <property name="text">
+                                <string>X</string>
+                               </property>
+                              </item>
+                              <item>
+                               <property name="text">
+                                <string>Y</string>
+                               </property>
+                              </item>
+                              <item>
+                               <property name="text">
+                                <string>Z</string>
+                               </property>
+                              </item>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                         </layout>
+                        </item>
+                       </layout>
+                      </item>
+                      <item>
+                       <widget class="Line" name="line_11">
+                        <property name="locale">
+                         <locale language="English" country="UnitedStates"/>
+                        </property>
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <layout class="QGridLayout" name="pyramid_translate_box">
+                        <item row="0" column="0">
+                         <widget class="QLabel" name="pyramid_translate_box_label">
+                          <property name="locale">
+                           <locale language="English" country="UnitedStates"/>
+                          </property>
+                          <property name="text">
+                           <string>Translate</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="1" column="0">
+                         <layout class="QGridLayout" name="pyramid_translate_values">
+                          <item row="0" column="0">
+                           <layout class="QFormLayout" name="pyramid_translate_x_box">
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="pyramid_translate_x_label">
+                              <property name="locale">
+                               <locale language="English" country="UnitedStates"/>
+                              </property>
+                              <property name="text">
+                               <string>x</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="0" column="1">
+                             <widget class="QDoubleSpinBox" name="pyramid_translate_x">
+                              <property name="locale">
+                               <locale language="English" country="UnitedStates"/>
+                              </property>
+                              <property name="minimum">
+                               <double>-99.000000000000000</double>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="0" column="1">
+                           <layout class="QFormLayout" name="pyramid_translate_y_box">
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="pyramid_translate_y_label">
+                              <property name="locale">
+                               <locale language="English" country="UnitedStates"/>
+                              </property>
+                              <property name="text">
+                               <string>y</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="0" column="1">
+                             <widget class="QDoubleSpinBox" name="pyramid_translate_y">
+                              <property name="locale">
+                               <locale language="English" country="UnitedStates"/>
+                              </property>
+                              <property name="minimum">
+                               <double>-99.000000000000000</double>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="0" column="2">
+                           <layout class="QFormLayout" name="pyramid_translate_z_box">
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="pyramid_translate_z_label">
+                              <property name="locale">
+                               <locale language="English" country="UnitedStates"/>
+                              </property>
+                              <property name="text">
+                               <string>z</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="0" column="1">
+                             <widget class="QDoubleSpinBox" name="pyramid_translate_z">
+                              <property name="locale">
+                               <locale language="English" country="UnitedStates"/>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                         </layout>
+                        </item>
+                       </layout>
+                      </item>
+                      <item>
+                       <widget class="Line" name="line_12">
+                        <property name="locale">
+                         <locale language="English" country="UnitedStates"/>
+                        </property>
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <layout class="QGridLayout" name="pyramid_scale_box">
+                        <item row="0" column="0">
+                         <widget class="QLabel" name="pyramid_scale_box_label">
+                          <property name="locale">
+                           <locale language="English" country="UnitedStates"/>
+                          </property>
+                          <property name="text">
+                           <string>Uniform Scale</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="1" column="0">
+                         <layout class="QFormLayout" name="pyramid_scale_values">
+                          <item row="0" column="0">
+                           <widget class="QLabel" name="pyramid_scale_label">
+                            <property name="locale">
+                             <locale language="English" country="UnitedStates"/>
+                            </property>
+                            <property name="text">
+                             <string>factor</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="1">
+                           <widget class="QDoubleSpinBox" name="pyramid_scale">
+                            <property name="locale">
+                             <locale language="English" country="UnitedStates"/>
+                            </property>
+                            <property name="minimum">
+                             <double>0.100000000000000</double>
+                            </property>
+                            <property name="maximum">
+                             <double>5.000000000000000</double>
+                            </property>
+                            <property name="value">
+                             <double>1.000000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                       </layout>
+                      </item>
+                     </layout>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item>
+                 <layout class="QGridLayout" name="default_button_layout">
+                  <item row="0" column="1">
+                   <widget class="QPushButton" name="set_cloth_default_button">
+                    <property name="locale">
+                     <locale language="English" country="UnitedStates"/>
+                    </property>
+                    <property name="text">
+                     <string>Set to default</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="0">
+                   <spacer name="horizontalSpacer">
+                    <property name="locale">
+                     <locale language="English" country="UnitedStates"/>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="simulate_button">
+           <property name="locale">
+            <locale language="English" country="UnitedStates"/>
+           </property>
+           <property name="text">
+            <string>Start Simulation</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="stop_simulation_button">
+           <property name="locale">
+            <locale language="English" country="UnitedStates"/>
+           </property>
+           <property name="text">
+            <string>Pause Simulation</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="restart_simulation_button">
+           <property name="locale">
+            <locale language="English" country="UnitedStates"/>
+           </property>
+           <property name="text">
+            <string>Restart Simulation</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

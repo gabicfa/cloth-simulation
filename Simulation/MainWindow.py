@@ -1,11 +1,11 @@
 import sys
 import numpy as np
 
-from Cloth import Cloth
-from Sphere import Sphere
-from Cube import Cube
-from Pyramid import Pyramid
-from Plane import Plane
+from Simulation.Cloth import Cloth
+from Simulation.Sphere import Sphere
+from Simulation.Cube import Cube
+from Simulation.Pyramid import Pyramid
+from Simulation.Plane import Plane
 
 from PyQt5.QtWidgets import QApplication, QMainWindow, QOpenGLWidget
 from PyQt5.QtCore import Qt
@@ -149,35 +149,3 @@ class MainWindow(QMainWindow):
             self.gl_widget.cam_position += np.cross(self.gl_widget.cam_target - self.gl_widget.cam_position, self.gl_widget.cam_up_vector) * self.gl_widget.move_speed
 
         self.gl_widget.update()
-
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-
-    cloth = Cloth()
-    cloth.rotate([1,0,0], 90)
-    cloth.translate([-1.0,-0.45,0.0])
-    
-    sphere = Sphere()
-    cube = Cube()
-    pyramid = Pyramid()
-    plane = Plane()
-
-    pyramid.rotate([1,0,0], -90)
-    pyramid.translate([1.25,-1.05,0.5])
-
-    cube.scale([0.5,0.5,0.5])
-    cube.translate([-0.2,-0.8,0.5])
-    
-    sphere.scale(0.7)
-    sphere.translate([0.5,-0.75,0.5])
-    
-    plane.rotate([1,0,0], -90)
-    plane.scale(8.0)
-    plane.translate([0.5, -1.07,0.0])
-    
-    solids = [sphere, cube, pyramid, plane]
-    window = MainWindow(cloth, solids)
-    window.show()
-
-    # Start the application event loop
-    sys.exit(app.exec_())

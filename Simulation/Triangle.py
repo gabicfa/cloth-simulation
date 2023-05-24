@@ -1,6 +1,6 @@
 import numpy as np
 
-from Solid import Solid
+from Simulation.Solid import Solid
 class Triangle:
     def __init__(self, p1 =[0.0, 0.0, 0.0], p2 = [1.0, 0.0, 0.0], p3 = [0.0, 1.0, 0.0]):
         self.p1 = np.array(p1)
