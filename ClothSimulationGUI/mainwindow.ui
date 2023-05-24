@@ -71,7 +71,7 @@
                  <x>0</x>
                  <y>0</y>
                  <width>342</width>
-                 <height>1540</height>
+                 <height>1578</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -84,7 +84,7 @@
                    <string>Cloth</string>
                   </property>
                   <layout class="QGridLayout" name="gridLayout_3">
-                   <item row="2" column="0">
+                   <item row="3" column="0">
                     <layout class="QGridLayout" name="num_particle_grid">
                      <item row="2" column="0">
                       <layout class="QGridLayout" name="num_particles_input">
@@ -177,9 +177,9 @@
                      </item>
                     </layout>
                    </item>
-                   <item row="0" column="0">
+                   <item row="1" column="0">
                     <layout class="QGridLayout" name="dimensions_grid">
-                     <item row="1" column="0">
+                     <item row="2" column="0">
                       <layout class="QGridLayout" name="dimensions_input">
                        <item row="0" column="0">
                         <layout class="QFormLayout" name="formLayout">
@@ -243,7 +243,7 @@
                        </item>
                       </layout>
                      </item>
-                     <item row="0" column="0">
+                     <item row="1" column="0">
                       <widget class="QLabel" name="dimensions_label">
                        <property name="locale">
                         <locale language="English" country="UnitedStates"/>
@@ -255,7 +255,7 @@
                      </item>
                     </layout>
                    </item>
-                   <item row="6" column="0">
+                   <item row="7" column="0">
                     <layout class="QGridLayout" name="translate_cloth_grid">
                      <item row="1" column="0">
                       <layout class="QGridLayout" name="position_grid">
@@ -366,7 +366,7 @@
                      </item>
                     </layout>
                    </item>
-                   <item row="5" column="0">
+                   <item row="6" column="0">
                     <widget class="Line" name="line_3">
                      <property name="locale">
                       <locale language="English" country="UnitedStates"/>
@@ -376,7 +376,14 @@
                      </property>
                     </widget>
                    </item>
-                   <item row="1" column="0">
+                   <item row="9" column="0">
+                    <widget class="QCheckBox" name="fix_first_line">
+                     <property name="text">
+                      <string>Fix first line of particles</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="0">
                     <widget class="Line" name="line">
                      <property name="locale">
                       <locale language="English" country="UnitedStates"/>
@@ -386,7 +393,7 @@
                      </property>
                     </widget>
                    </item>
-                   <item row="3" column="0">
+                   <item row="4" column="0">
                     <widget class="Line" name="line_2">
                      <property name="locale">
                       <locale language="English" country="UnitedStates"/>
@@ -396,7 +403,7 @@
                      </property>
                     </widget>
                    </item>
-                   <item row="4" column="0">
+                   <item row="5" column="0">
                     <layout class="QGridLayout" name="rotate_cloth_grid">
                      <item row="0" column="0">
                       <widget class="QLabel" name="rotate_cloth_label">
@@ -488,6 +495,13 @@
                       </layout>
                      </item>
                     </layout>
+                   </item>
+                   <item row="8" column="0">
+                    <widget class="Line" name="line_15">
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                    </widget>
                    </item>
                   </layout>
                  </widget>

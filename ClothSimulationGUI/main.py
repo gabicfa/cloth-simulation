@@ -259,7 +259,9 @@ class MainWindow(QMainWindow):
         translate_y = self.translate_y.value()
         translate_z = self.translate_z.value()
 
-        cloth = Cloth(num_particles_x, num_particles_y, cloth_width, cloth_height)
+        fix_first_line = self.fix_first_line.isChecked()
+
+        cloth = Cloth(num_particles_x, num_particles_y, cloth_width, cloth_height, fix_first_line)
         cloth.rotate(rotate_cloth_axis, rotate_cloth_angle)
         cloth.translate([translate_x,translate_y,translate_z])
 
