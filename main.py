@@ -32,8 +32,8 @@ class SimulationWidget(QOpenGLWidget):
         gluPerspective(45.0, self.width() / self.height(), 0.1, 100.0)
         
         # Camera properties
-        self.cam_position = np.array([0.0, 1.0, 4.0])
-        self.cam_target = np.array([0.0, 1.0, 0.0])
+        self.cam_position = np.array([0.0, 0.75, 3.5])
+        self.cam_target = np.array([0.0, 0.0, 0.0])
         self.cam_up_vector = np.array([0.0, 1.0, 0.0])
         
         self.rotate_speed = 0.01

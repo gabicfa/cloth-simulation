@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 9.0.0, 2023-05-22T18:16:15. -->
+<!-- Written by QtCreator 9.0.0, 2023-05-24T17:26:37. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -140,16 +140,12 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">main.py</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./Users/gabrielaalmeida/Documents/Bournemouth_Academico/Simulation/cloth-simulation/ClothSimulationGUI/main.py</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/Users/gabrielaalmeida/Documents/Bournemouth_Academico/Simulation/cloth-simulation/ClothSimulationGUI/main.py</value>
-    <value type="QString" key="PythonEditor.RunConfiguation.Interpreter">{3af2cb5f-c5f6-4f45-b408-2fe24727a85d}</value>
-    <value type="QString" key="PythonEditor.RunConfiguation.Script">/Users/gabrielaalmeida/Documents/Bournemouth_Academico/Simulation/cloth-simulation/ClothSimulationGUI/main.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.CustomExecutableRunConfiguration</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey"></value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/Users/gabrielaalmeida/Documents/Bournemouth_Academico/Simulation/cloth-simulation/ClothSimulationGUI</value>
    </valuemap>
    <value type="qlonglong" key="ProjectExplorer.Target.RunConfigurationCount">1</value>
   </valuemap>
