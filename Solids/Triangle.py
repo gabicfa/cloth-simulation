@@ -14,7 +14,7 @@ class Triangle:
         edge1 = self.p2 - self.p1
         edge2 = self.p3 - self.p1
         normal = np.cross(edge1, edge2)
-        normal /= np.linalg.norm(normal)  # normalize the normal
+        normal /= np.linalg.norm(normal)
         return normal
 
     def point_inside(self, p):

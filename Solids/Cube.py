@@ -10,7 +10,6 @@ class Cube(Solid):
 
         hs = size / 2.0
 
-        # Define vertices for the cube centered at the origin
         vertices = [
             center + np.array([-hs, -hs, -hs]),
             center + np.array([hs, -hs, -hs]),
@@ -24,8 +23,6 @@ class Cube(Solid):
 
         self.vertices= vertices
 
-        # Define triangles for each face of the cube
-        # Vertices are specified in counter-clockwise order
         self.triangles = [
             Triangle(self.vertices[0], self.vertices[3], self.vertices[1]), Triangle(self.vertices[1], self.vertices[3], self.vertices[2]),  # Front face
             Triangle(self.vertices[5], self.vertices[6], self.vertices[4]), Triangle(self.vertices[4], self.vertices[6], self.vertices[7]),  # Back face
@@ -35,7 +32,6 @@ class Cube(Solid):
             Triangle(self.vertices[3], self.vertices[7], self.vertices[2]), Triangle(self.vertices[2], self.vertices[7], self.vertices[6])   # Top face
         ]
 
-        # Calculate the minimum and maximum coordinates of the cube
         self.min_coords = np.min(self.vertices, axis=0)
         self.max_coords = np.max(self.vertices, axis=0)
 
