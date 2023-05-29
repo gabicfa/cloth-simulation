@@ -20,6 +20,10 @@ class Triple:
         self.p1 = p1
         self.p2 = p2
         self.p3 = p3
+        vector1 = p2.initial_position - p1.initial_position
+        vector2 = p3.initial_position - p2.initial_position
+        cosine_angle = np.dot(vector1, vector2) / (np.linalg.norm(vector1) * np.linalg.norm(vector2))
+        self.initial_angle = np.arccos(cosine_angle)
 
 class Quadruple:
     def __init__(self, p1, p2, p3, p4):

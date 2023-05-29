@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import sys
-# sys.path.append('../')  # Adds the parent directory to Python's module search path
 
 import numpy as np
 from PyQt5.QtCore import *

@@ -114,14 +114,14 @@ class Cloth:
 
     def apply_shearing_forces(self, quadruple):
         p1, p2, p3, p4 = quadruple.p1, quadruple.p2, quadruple.p3, quadruple.p4
-        L_shear = quadruple.L_shear
-        C_shear = np.linalg.norm((p2.position - p1.position) + (p4.position - p3.position)) - L_shear
-        C_dot_shear = np.linalg.norm((p2.velocity - p1.velocity) + (p4.velocity - p3.velocity))
+        C_shear = self.shearing_constraint(quadruple)
+        C_dot_shear = np.dot(p2.velocity - p1.velocity + p4.velocity - p3.velocity, p2.position - p1.position + p4.position - p3.position)
 
-        grad_C_shear_p1 = -(p2.position - p1.position + p4.position - p3.position) / L_shear
-        grad_C_shear_p2 = (p2.position - p1.position + p4.position - p3.position) / L_shear
-        grad_C_shear_p3 = -(p2.position - p1.position + p4.position - p3.position) / L_shear
-        grad_C_shear_p4 = (p2.position - p1.position + p4.position - p3.position) / L_shear
+        grad_C_shear_p1 = -(p2.position - p1.position + p4.position - p3.position)
+        grad_C_shear_p2 = (p2.position - p1.position + p4.position - p3.position)
+        grad_C_shear_p3 = -(p2.position - p1.position + p4.position - p3.position)
+        grad_C_shear_p4 = (p2.position - p1.position + p4.position - p3.position)
+
         p1.force += -self.shearing_stiffness * C_shear * grad_C_shear_p1 - self.damping * C_dot_shear * grad_C_shear_p1
         p2.force += -self.shearing_stiffness * C_shear * grad_C_shear_p2 - self.damping * C_dot_shear * grad_C_shear_p2
         p3.force += -self.shearing_stiffness * C_shear * grad_C_shear_p3 - self.damping * C_dot_shear * grad_C_shear_p3
@@ -131,12 +131,13 @@ class Cloth:
         particle1 = triple.p1
         particle2 = triple.p2
         particle3 = triple.p3
+        angle_diff = self.bending_constraint(triple)
         C_dot_bending = np.linalg.norm(particle2.velocity - particle1.velocity - particle3.velocity)
-        v1 = particle2.position - particle1.position
-        v2 = particle3.position - particle2.position
-        bending_force = self.bending_stiffness * (v1 - v2)
-        particle1.force -= bending_force - self.damping * C_dot_bending
-        particle3.force += bending_force - self.damping * C_dot_bending
+        bending_force = self.bending_stiffness * angle_diff
+        force_direction_1 = particle2.position - particle1.position
+        force_direction_3 = particle3.position - particle2.position
+        particle1.force += bending_force * force_direction_1 - self.damping * C_dot_bending
+        particle3.force += bending_force * force_direction_3 - self.damping * C_dot_bending
 
     def apply_stretch_forces(self, spring):
         current_length = np.linalg.norm(spring.particle1.position - spring.particle2.position)
@@ -175,8 +176,7 @@ class Cloth:
         vector2 = spring2.particle2.position - spring2.particle1.position
         cosine_angle = np.dot(vector1, vector2) / (np.linalg.norm(vector1) * np.linalg.norm(vector2))
         current_angle = np.arccos(cosine_angle)
-        # Assume a rest angle of 0 (i.e., the springs are initially straight)
-        rest_angle = 0
+        rest_angle = triple.initial_angle
         return current_angle - rest_angle
 
     def shearing_constraint(self, quadruple):
@@ -184,13 +184,10 @@ class Cloth:
         particle2 = quadruple.p2
         particle3 = quadruple.p3
         particle4 = quadruple.p4
-        # Calculate the current length of the diagonal
-        diagonal1 = particle2.position - particle1.position
-        diagonal2 = particle4.position - particle3.position
-        current_length = np.linalg.norm(diagonal1 - diagonal2)
-        # Assume a rest length equal to the initial length of the diagonal
-        rest_length = np.linalg.norm(particle2.initial_position - particle1.initial_position)
-        # Return the difference between the current length and the rest length
+
+        current_length = np.linalg.norm(particle2.position - particle1.position + particle4.position - particle3.position)
+        rest_length = quadruple.L_shear
+
         return current_length - rest_length
 
     def update_constraints(self):
@@ -247,7 +244,7 @@ class Cloth:
     def calculate_jacobian(self):
         num_particles = len(self.particles)
         J = lil_matrix((3 * num_particles, 3 * num_particles))
-        epsilon = 1e-5  # Small change for finite difference
+        epsilon = 1e-5 
 
         # Iterate over all pairs of particles
         # for i in range(num_particles):
@@ -270,14 +267,6 @@ class Cloth:
         #         J[3*i:3*i+3, 3*j:3*j+3] = dF_dx[3*j:3*j+3]
 
         return J
-
-    def integrate_particles1(self, delta_time):
-        for particle in self.particles:
-            if not particle.is_fixed :
-                acceleration = particle.force / particle.mass
-                particle.velocity += acceleration * delta_time
-                particle.position += particle.velocity * delta_time
-            particle.force = np.zeros(3)
     
     # --------- COLLISION --------- #
 
