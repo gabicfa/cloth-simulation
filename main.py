@@ -96,7 +96,7 @@ class SimulationWidget(QOpenGLWidget):
         #Cloth Springs
         glLineWidth(2.0)
         glBegin(GL_LINES)
-        glColor3f(0.0, 0.0, 0.0)  # Set the color of the strings
+        glColor3f(0.0, 0.0, 0.0)
         for spring in self.cloth.springs:
             p1 = spring.particle1.position
             p2 = spring.particle2.position
@@ -113,7 +113,6 @@ class SimulationWidget(QOpenGLWidget):
         glFlush()
 
     def update_simulation(self):
-        # Update the simulation
         delta_time = 0.001  # Time step
         for solid in self.solids:
             self.cloth.handle_collisions_with_solid(solid) 
@@ -129,7 +128,6 @@ class MainWindow(QMainWindow):
 
         uic.loadUi('ClothSimulationGUI/mainwindow.ui', self)
 
-        # Create your SimulationWidget and assign the solids and cloth instances
         self.simulation_widget = SimulationWidget(self.simulationWidget)
         self.simulation_widget.solids = []
         self.timer = QTimer()
@@ -143,9 +141,8 @@ class MainWindow(QMainWindow):
         
         self.collision_object.currentTextChanged.connect(self.update_collision_object_fields)
 
-        # Set the focus policy for the simulation widget
         self.simulation_widget.setFocusPolicy(Qt.StrongFocus)
-        self.simulation_widget.setFocus()  # Explicitly set the initial focus to the simulation widget
+        self.simulation_widget.setFocus()
 
         self.set_values_simulation()
         self.simulation_widget.solids.append(self.plane)
@@ -232,7 +229,6 @@ class MainWindow(QMainWindow):
         self.pyramid_scale.setValue(1.0)
     
         self.update_collision_object_fields()
-
 
     def set_values_simulation(self):
         num_particles_x = self.num_particles_x.value()
